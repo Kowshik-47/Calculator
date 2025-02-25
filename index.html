@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calculator</title>
+	<link href="https://fonts.cdnfonts.com/css/segment7" rel="stylesheet">
+
+    </head>
+    <body>        
+        <center>
+            <br><br>
+            <h2>Calculator</h2>
+            <br><br>
+            <div class="calc">
+                <br>
+                <div class="innercalc">
+                    <br>
+                    <textarea id="disp" rows="2" cols="20" disabled ></textarea>
+                    <br><br>
+                </div>
+                <br>
+                <div class="numpad">
+                    <table cellpadding="7%" >
+                        <tr>
+                            <td><button class="spl-btn" onclick="action(this)"  name="acc" >ACC</button></td>
+                            <td><button class="spl-btn" onclick="action(this)" name="del">DEL</button></td>
+                            <td><button class="spl-btn" onclick="action(this)" name="clr">CLR</button></td>
+                            <td><button class="op-btn" onclick="action(this)" name="div">/</button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="num-btn" onclick="action(this)"  name="1" >1</button></td>
+                            <td><button class="num-btn" onclick="action(this)" name="2">2</button></td>
+                            <td><button class="num-btn" onclick="action(this)" name="3">3</button></td>
+                            <td><button class="op-btn" onclick="action(this)" name="plus">+</button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="num-btn" onclick="action(this)"  name="4" >4</button></td>
+                            <td><button class="num-btn" onclick="action(this)" name="5">5</button></td>
+                            <td><button class="num-btn" onclick="action(this)" name="6">6</button></td>
+                            <td><button class="op-btn" onclick="action(this)" name="minus">-</button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="num-btn" onclick="action(this)"  name="7">7</button></td>
+                            <td><button class="num-btn" onclick="action(this)" name="8">8</button></td>
+                            <td><button class="num-btn" onclick="action(this)" name="9">9</button></td>
+                            <td><button class="op-btn" onclick="action(this)" name="mult">*</button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="num-btn" onclick="action(this)"  name="dec">.</button></td>
+                            <td><button class="num-btn" onclick="action(this)" name="0">0</button></td>
+                            <td><button class="ans-btn" onclick="action(this)" name="ans">ANS</button></td>
+                            <td><button class="eq-btn" onclick="action(this)" name="equal">=</button></td>
+                        </tr>
+                    </table>
+                </div>
+                <br>
+            </div>
+        </center>
+    </body>
+</html>
+<style>
+    @import url('https://fonts.cdnfonts.com/css/segment7');
+    .calc{
+        height: 50%;
+        width: 25%;
+        background-color: rgb(34, 32, 32);
+        border-radius: 10px;
+        box-shadow: 25px 25px 30px rgba(49, 49, 49, 0.925);
+    }
+    .innercalc{
+        height : 10%;
+        width: 90%;
+        background-color: rgb(41, 40, 40);
+        border-radius: 10px;
+    }
+    #disp{
+        height: 85%;
+        width : 90%;
+        background-color: rgb(117, 118, 119);
+        resize: none; 
+        border-radius: 7px; 
+        color: white;
+        border-width: 0cap;
+        font-size: 150%;
+	padding : 2px 2px;
+	scroll-bar : none;
+    }
+    button{
+        width: 80%;
+        height : 80%;
+        padding: 10px 14px 10px 10px;
+        border-radius: 10px;
+        color: white;
+        border-width: 0cap;
+        font-size: 100%;
+    }
+    .spl-btn{
+        background-color: rgb(236, 115, 70);
+    }
+    .spl-btn:hover{
+        background-color: rgb(220, 100, 55);
+	box-shadow: 2px 2px 3px rgba(150, 150, 150, 0.925);
+    }
+    .num-btn{
+        background-color: rgb(255, 255, 255);
+        color: #000;
+    }
+    .num-btn:hover{
+        background-color: rgb(235, 235, 235);
+	box-shadow: 2px 2px 3px rgba(150, 150, 150, 0.925);
+    }
+    .op-btn{
+        font-size: 120%;
+        background-color: rgb(80, 79, 79);
+        color: #ffffff;
+    }
+    .op-btn:hover{
+        background-color: rgb(100, 100, 100);
+	box-shadow: 2px 2px 3px rgba(150, 150, 150, 0.925);
+    }
+    .eq-btn{
+        font-size: 120%;
+        background-color: rgb(211, 80, 80);
+        color: #ffffff;
+    }
+    .eq-btn:hover{
+        background-color: rgb(223, 90, 93);
+	box-shadow: 2px 2px 3px rgba(150, 150, 150, 0.925);
+    }
+    .ans-btn{
+        background-color: rgb(62, 100, 202);
+        color: #ffffff;
+    }
+    .ans-btn:hover{
+        background-color: rgb(81, 110, 213);
+	box-shadow: 2px 2px 3px rgba(150, 150, 150, 0.925);
+    }
+</style>
+<script>
+    const disp=document.getElementById('disp');
+    disp.value = "";
+    var ans = 0, expr;
+
+    function action(x){
+        var input = x.name;
+	if ( disp.value == 'Syntax Error' && input != 'del') { disp.value = ''; }
+        switch(input){
+	    case "0" :
+		if ( disp.value != '' ) { disp.value += '0'; }
+		break;
+
+            case "1" : case "2" : case "3" : case "4" : case "5" : case "6" :
+		case "7" : case "8" : case "9" : case "dec" : case "plus" :
+		case "minus" : case "mult" : case "div" :
+                disp.value += x.innerHTML;
+                break;
+
+            case "clr" :
+                disp.value = "";
+                ans = 0;
+                break;
+
+	    case "acc" :
+	        disp.value = "";
+                break;
+		
+            case "ans" :
+		if (disp.value != '0' && ans != 0){ disp.value += ans; }
+                break;
+
+            case "del" :
+		if ( disp.value == 'Syntax Error' ) { disp.value = expr ; }
+                else { disp.value = disp.value.slice(0, disp.value.length-1) ; }
+                break;
+
+            case "equal" :
+		    try {
+			  expr = disp.value;
+			  ans = eval(expr);
+			  if ( ans != undefined ) {
+				disp.value = ans;
+			  }
+		    } catch (e) {
+			  if (e instanceof SyntaxError) {
+				disp.value = 'Syntax Error';
+			  }
+		    }
+                break;	         
+        }
+    }
+</script>
